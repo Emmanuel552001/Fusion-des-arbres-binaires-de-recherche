@@ -46,15 +46,15 @@ class Tree():
 
     def generate_random_tree(self, size: int)-> None:
             for _ in range(size):
-                value = random.randint(0, 1000)
+                value = random.randint(0, 1000000)
                 self.insert(value)
         
         # PAUSE
 
     def print_in_order(self)-> None:
 
-        self._in_order_traversal(self.root)
-        print()
+        in_order_values = self._in_order_traversal(self.root)
+        print(in_order_values)
 
     def print_pre_order(self)-> None:
         self._pre_order_traversal(self.root)
@@ -69,12 +69,12 @@ class Tree():
 
         # récursivité in order : gauche , noeud puis droit
 
-    def _in_order_traversal(self, node: Node) -> None:
+    def _in_order_traversal(self, node: Node) -> tuple:
         
-        if node is not None:
-            self._in_order_traversal(node.left)
-            print(node.value, end=" ")
-            self._in_order_traversal(node.right)
+        if node is None:
+            return None
+        return (self._in_order_traversal(node.left) , node.value , self._in_order_traversal(node.right))
+
 
         # récursivité pré order : noeud , gauche , droit
     

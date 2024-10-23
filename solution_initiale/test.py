@@ -35,7 +35,7 @@ class Solution:
 
     def run(self) -> None:
         '''
-        Exécute la génération et l'affichage des arbres en fonction des choix de parcours.
+        gnération et affichage des arbres en fonction des choix de parcours.
         '''
         print('Génération et affichage des arbres...')
 
