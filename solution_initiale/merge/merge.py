@@ -35,13 +35,13 @@ class MergeBST():
 
     def _flatten_tuple(self, t: tuple) -> List[int]:
         '''
-        Aplatie un tuple imbriqué en une liste plate de valeurs entières.
+        transforme tuple imbriqué en une liste plate de valeurs entières.
 
         Args:
-            t: tuple: Le tuple à aplatir.
+            t: tuple: Le tuple à transformer .
         
         Returns:
-            List[int]: Liste plate des valeurs extraites du tuple.
+            List[int]: Liste transforme des valeurs extraites du tuple.
         '''
         result = []
         for item in t:
@@ -82,14 +82,14 @@ class MergeBST():
 
     def merge(self, p1: str, p2: str) -> Tree:
         '''
-        Fusionne les deux arbres en utilisant les parcours spécifiés P1 et P2.
+        fusion selon p1 et p2
 
         Args:
             p1: str: Le type de parcours pour l'arbre 1 ('inorder', 'preorder', 'postorder').
             p2: str: Le type de parcours pour l'arbre 2 ('inorder', 'preorder', 'postorder').
         
         Returns:
-            Tree: L'arbre fusionné respectant les propriétés d'un ABR.
+            Tree: arbre fusionné
         '''
         # Générer les listes aplaties pour les deux arbres
         list1 = self._flatten_tree(self.tree1, p1)
