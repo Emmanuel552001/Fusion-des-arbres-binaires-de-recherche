@@ -1,4 +1,5 @@
 from node.node import Node
+import matplotlib.pyplot as plt
 import random
 
 class Tree():
@@ -46,23 +47,22 @@ class Tree():
 
     def generate_random_tree(self, size: int)-> None:
             for _ in range(size):
-                value = random.randint(0, 1000000)
+                value = random.randint(0, 100)
                 self.insert(value)
         
         # PAUSE
 
     def print_in_order(self)-> None:
-
         in_order_values = self._in_order_traversal(self.root)
         print(in_order_values)
 
     def print_pre_order(self)-> None:
-        self._pre_order_traversal(self.root)
-        print()
+        pre_order_values = self._pre_order_traversal(self.root)
+        print(pre_order_values)
 
     def print_post_order(self)-> None:
-        self._post_order_traversal(self.root)
-        print()
+        post_order_values = self._post_order_traversal(self.root)
+        print(post_order_values)
 
 
     # Méthode additionnelles
@@ -78,21 +78,19 @@ class Tree():
 
         # récursivité pré order : noeud , gauche , droit
     
-    def _pre_order_traversal(self, node: Node) -> None:
+    def _pre_order_traversal(self, node: Node) -> tuple:
         
-        if node is not None:
-            print(node.value, end=" ")
-            self._pre_order_traversal(node.left)
-            self._pre_order_traversal(node.right)
+        if node is None:
+            return None
+        return(node.value , self._pre_order_traversal(node.left), self._pre_order_traversal(node.right))
 
         # récursivité post order : gauche , droit , noeud
     
-    def _post_order_traversal(self, node: Node) -> None:
+    def _post_order_traversal(self, node: Node) -> tuple:
 
-        if node is not None:
-            self._post_order_traversal(node.left)
-            self._post_order_traversal(node.right)
-            print(node.value, end=" ")
+        if node is None:
+            return None
+        return (self._post_order_traversal(node.left), self._post_order_traversal(node.right), node.value)
 
             #AFFICHER
     def __str__(self) -> str:
@@ -102,3 +100,41 @@ class Tree():
         if node is None:
             return []
         return self._in_order_values(node.left) + [node.value] + self._in_order_values(node.right)
+    
+
+    # REPRESENTATION EN 3D
+    def plot_tree(self):
+        '''
+        Méthode pour dessiner l'arbre binaire de recherche en 2D avec Matplotlib.
+        '''
+        fig, ax = plt.subplots()
+        ax.set_axis_off()  # Désactiver les axes
+        
+        def _plot_node(node, x, y, dx):
+            '''
+            Méthode récursive pour dessiner chaque nœud et ses enfants.
+            
+            Args:
+                node: Node: Le nœud courant à dessiner.
+                x, y: Coordonnées du nœud.
+                dx: Décalage en x pour les enfants.
+            '''
+            if node:
+                ax.text(x, y, str(node.value), ha='center', va='center', 
+                        bbox=dict(facecolor='white', edgecolor='black', boxstyle='circle'))
+
+                # Dessiner les enfants et les lignes
+                if node.left:
+                    ax.plot([x, x - dx], [y - 1, y - 2], 'k-')  # Lien vers le fils gauche
+                    _plot_node(node.left, x - dx, y - 2, dx / 2)
+
+                if node.right:
+                    ax.plot([x, x + dx], [y - 1, y - 2], 'k-')  # Lien vers le fils droit
+                    _plot_node(node.right, x + dx, y - 2, dx / 2)
+        
+        _plot_node(self.root, 0, 0, 4)  # Appel initial (x, y, et décalage en x)
+        plt.show()
+    
+    
+
+
