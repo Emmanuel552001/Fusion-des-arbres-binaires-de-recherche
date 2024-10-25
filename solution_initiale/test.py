@@ -7,25 +7,21 @@ sys.setrecursionlimit(100000)
 
 def main():
 
-    # Entrée des valeurs pour les racines et les tailles des arbres
     racine1_value = int(input("Entrez la valeur de la racine de l'arbre 1 : "))
     taille_arbre1 = int(input("Entrez la taille de l'arbre 1 (nombre de nœuds) : "))
 
     racine2_value = int(input("Entrez la valeur de la racine de l'arbre 2 : "))
     taille_arbre2 = int(input("Entrez la taille de l'arbre 2 (nombre de nœuds) : "))
 
-    # Instancier les nœuds racines
     racine1 = Node(racine1_value)
     racine2 = Node(racine2_value)
-
-    # Instancier les arbres
     arbre1 = Tree(racine1)
     arbre2 = Tree(racine2)
 
     # Générer les nœuds supplémentaires
     print("\nGénération de nœuds supplémentaires pour les arbres...")
-    arbre1.generate_random_tree(taille_arbre1 - 1)  # Moins un car racine déjà définie
-    arbre2.generate_random_tree(taille_arbre2 - 1)  # Moins un car racine déjà définie
+    arbre1.generate_random_tree(taille_arbre1 - 1)  
+    arbre2.generate_random_tree(taille_arbre2 - 1)
 
     # Choix des parcours pour la fusion
     print("\nChoisissez un cas de fusion :")
