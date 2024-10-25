@@ -12,7 +12,7 @@ def main():
 
     racine2_value = int(input("Entrez la valeur de la racine de l'arbre 2 : "))
     taille_arbre2 = int(input("Entrez la taille de l'arbre 2 (nombre de nœuds) : "))
-
+    # instanciation
     racine1 = Node(racine1_value)
     racine2 = Node(racine2_value)
     arbre1 = Tree(racine1)
