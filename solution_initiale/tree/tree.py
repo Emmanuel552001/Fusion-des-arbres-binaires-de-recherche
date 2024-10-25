@@ -104,35 +104,24 @@ class Tree():
 
     # REPRESENTATION EN 3D
     def plot_tree(self):
-        '''
-        Méthode pour dessiner l'arbre binaire de recherche en 2D avec Matplotlib.
-        '''
+
         fig, ax = plt.subplots()
         ax.set_axis_off()  # Désactiver les axes
         
         def _plot_node(node, x, y, dx):
-            '''
-            Méthode récursive pour dessiner chaque nœud et ses enfants.
-            
-            Args:
-                node: Node: Le nœud courant à dessiner.
-                x, y: Coordonnées du nœud.
-                dx: Décalage en x pour les enfants.
-            '''
             if node:
                 ax.text(x, y, str(node.value), ha='center', va='center', 
                         bbox=dict(facecolor='white', edgecolor='black', boxstyle='circle'))
 
-                # Dessiner les enfants et les lignes
                 if node.left:
-                    ax.plot([x, x - dx], [y - 1, y - 2], 'k-')  # Lien vers le fils gauche
+                    ax.plot([x, x - dx], [y - 1, y - 2], 'k-')  
                     _plot_node(node.left, x - dx, y - 2, dx / 2)
 
                 if node.right:
-                    ax.plot([x, x + dx], [y - 1, y - 2], 'k-')  # Lien vers le fils droit
+                    ax.plot([x, x + dx], [y - 1, y - 2], 'k-')
                     _plot_node(node.right, x + dx, y - 2, dx / 2)
         
-        _plot_node(self.root, 0, 0, 4)  # Appel initial (x, y, et décalage en x)
+        _plot_node(self.root, 0, 0, 4)
         plt.show()
     
     

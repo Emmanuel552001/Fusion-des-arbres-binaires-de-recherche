@@ -1,46 +1,69 @@
-from typing import List
+import sys
 from tree.tree import Tree
+from node.node import Node
+from merge.merge import MergeBST
 
-class Solution:
-    def __init__(self, tree1: Tree, tree2: Tree):
-        self.tree1 = tree1
-        self.tree2 = tree2
+sys.setrecursionlimit(100000)
 
-    def choisir_parcours(self, arbre: Tree, numero_arbre: int) -> None:
-        '''
-        Demande à l'utilisateur de choisir le type de parcours pour un arbre.
-        Args:
-            arbre: Tree: l'arbre pour lequel on choisit le parcours
-            numero_arbre: int: le numéro de l'arbre (1 ou 2)
-        '''
-        print(f"\nChoisissez le type de parcours pour l'arbre {numero_arbre}:")
-        print("1. Infixe")
-        print("2. Préfixe")
-        print("3. Postfixe")
-        
-        choix = input("Votre choix (1, 2, ou 3) : ")
+def main():
 
-        if choix == "1":
-            print(f"\nAffichage de l'arbre {numero_arbre} en ordre infixe :")
-            arbre.print_in_order()
-        elif choix == "2":
-            print(f"\nAffichage de l'arbre {numero_arbre} en ordre préfixe :")
-            arbre.print_pre_order()
-        elif choix == "3":
-            print(f"\nAffichage de l'arbre {numero_arbre} en ordre postfixe :")
-            arbre.print_post_order()
-        else:
-            print("Choix invalide, affichage en ordre infixe par défaut.")
-            arbre.print_in_order()
+    # Entrée des valeurs pour les racines et les tailles des arbres
+    racine1_value = int(input("Entrez la valeur de la racine de l'arbre 1 : "))
+    taille_arbre1 = int(input("Entrez la taille de l'arbre 1 (nombre de nœuds) : "))
 
-    def run(self) -> None:
-        '''
-        gnération et affichage des arbres en fonction des choix de parcours.
-        '''
-        print('Génération et affichage des arbres...')
+    racine2_value = int(input("Entrez la valeur de la racine de l'arbre 2 : "))
+    taille_arbre2 = int(input("Entrez la taille de l'arbre 2 (nombre de nœuds) : "))
 
-        # Demande le type de parcours pour l'arbre 1
-        self.choisir_parcours(self.tree1, 1)
+    # Instancier les nœuds racines
+    racine1 = Node(racine1_value)
+    racine2 = Node(racine2_value)
 
-        # Demande le type de parcours pour l'arbre 2
-        self.choisir_parcours(self.tree2, 2)
+    # Instancier les arbres
+    arbre1 = Tree(racine1)
+    arbre2 = Tree(racine2)
+
+    # Générer les nœuds supplémentaires
+    print("\nGénération de nœuds supplémentaires pour les arbres...")
+    arbre1.generate_random_tree(taille_arbre1 - 1)  # Moins un car racine déjà définie
+    arbre2.generate_random_tree(taille_arbre2 - 1)  # Moins un car racine déjà définie
+
+    # Choix des parcours pour la fusion
+    print("\nChoisissez un cas de fusion :")
+    print("1. P1 = Infixe, P2 = Préfixe")
+    print("2. P1 = Infixe, P2 = Postfixe")
+    print("3. P1 = Préfixe, P2 = Préfixe")
+
+    choix = int(input("Entrez le numéro du cas (1, 2 ou 3) : "))
+
+    if choix == 1:
+        p1 = 'inorder'
+        p2 = 'preorder'
+    elif choix == 2:
+        p1 = 'inorder'
+        p2 = 'postorder'
+    elif choix == 3:
+        p1 = 'preorder'
+        p2 = 'preorder'
+    else:
+        print("Choix invalide. Veuillez relancer le programme et entrer un choix valide.")
+        return
+
+    # Fusion des arbres avec les parcours choisis
+    merger = MergeBST(arbre1, arbre2)
+    arbre_fusionne = merger.merge(p1, p2)
+
+    # Affichage de l'arbre fusionné
+    print("\nArbre fusionné (In-order):")
+    arbre_fusionne.print_in_order()
+
+    # Affichage graphique des arbres
+    print("\nAffichage graphique de l'arbre 1 :")
+    arbre1.plot_tree()
+    print("\nAffichage graphique de l'arbre 2 :")
+    arbre2.plot_tree()
+    print("\nAffichage graphique de l'arbre fusionné :")
+    arbre_fusionne.plot_tree()
+
+
+if __name__ == '__main__':
+    main()
